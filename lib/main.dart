@@ -1,4 +1,6 @@
 
+import 'dart:ffi';
+
 import 'package:expense_tracker/widgets/newtransactions.dart';
 import 'package:expense_tracker/widgets/transaction_list.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,7 @@ void main(){
           home :MyApp(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.purple,
+          primarySwatch: Colors.green,
           secondaryHeaderColor: Colors.amber,
         )
       ));
@@ -29,10 +31,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  final List<Transaction> _userTransaction= [
-    Transaction(id: 't1', title: 'product1', amount: 48.69, date: DateTime.now()),
-    Transaction(id: 't2', title: 'product2', amount: 66.53, date: DateTime.now())
-  ];
+  final List<Transaction> _userTransaction= [];
 
   void _addNewTransaction(String title , double amount){
     final newtx = Transaction(id: DateTime.now().toString(), title: title, amount: amount, date: DateTime.now());
@@ -78,6 +77,18 @@ class _MyAppState extends State<MyApp> {
                         child: Text("chart- pls holder")
                     ),
                   ),
+                  if (_userTransaction.isEmpty)
+                    Column(
+                      children: [
+                        Text("No transactions added yet!"),
+                        SizedBox(height: 20,),
+                        Container(
+                          height: 200,
+                          child: Image.asset("images/waiting.png", fit: BoxFit.cover,),
+                        )
+                      ],
+                    )
+                  else
                   TransactionList(_userTransaction)
 
                 ],
