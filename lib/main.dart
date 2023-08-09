@@ -5,7 +5,16 @@ import 'package:flutter/material.dart';
 import './models/transaction.dart';
 
 void main(){
-  runApp(MyApp());
+  runApp(
+      MaterialApp(
+        title: "Expense Tracker",
+          home :MyApp(),
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.purple,
+          secondaryHeaderColor: Colors.amber,
+        )
+      ));
 }
 
 class MyApp extends StatefulWidget {
@@ -35,6 +44,7 @@ class _MyAppState extends State<MyApp> {
 
   void _startAddNewTransaction(BuildContext ctx){
     showModalBottomSheet(context: ctx, builder: (bctx){
+      print("entered _startAddNewTransaction");
       return GestureDetector(
         onTap: (){},
         child: NewTransaction(_addNewTransaction),
@@ -47,14 +57,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return
-        MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: Scaffold(
-            backgroundColor: Colors.teal,
+    return Scaffold(
             appBar: AppBar(
               title: Text("Expense Tracker"),
-              backgroundColor: Colors.blue,
               actions: [
                 IconButton(onPressed: () => _startAddNewTransaction(context), icon: Icon(Icons.add))
               ],
@@ -85,7 +90,7 @@ class _MyAppState extends State<MyApp> {
                 Icons.add
               ),
             ),
-          ),
+
     );
   }
 }
